@@ -1,7 +1,38 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'maven-publish'
+    id 'pl.allegro.tech.build.axion-release' version '1.13.6'
 }
+def properties = new Properties()
+properties.load(rootProject.file('local.properties').newInputStream())
+def gitUser = properties.getProperty("gitUser")
+def gitPassword = properties.getProperty("gitPassword")
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.github.swordman20'
+                artifactId = 'JitPackGithub'
+                version = '1.0'
+            }
+        }
+        repositories {
+            maven {
+                name = "jitpack"
+                url "https://jitpack.io"
+                credentials {
+                    username = gitUser
+                    password = gitPassword
+                }
+            }
+        }
+
+    }
+}
+scmVersion.repository.customUsername = gitUser
+scmVersion.repository.customPassword = gitPassword
 
 android {
     compileSdkVersion 32
