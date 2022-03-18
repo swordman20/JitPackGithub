@@ -31,8 +31,14 @@ afterEvaluate {
 
     }
 }
-scmVersion.repository.customUsername = gitUser
-scmVersion.repository.customPassword = gitPassword
+scmVersion {
+    repository{
+        customUsername = gitUser
+        customPassword = gitPassword
+    }
+}
+//scmVersion.repository.customUsername = gitUser
+//scmVersion.repository.customPassword = gitPassword
 
 android {
     compileSdkVersion 32
